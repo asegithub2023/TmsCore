@@ -99,44 +99,31 @@ var s = new Student
 Console.WriteLine($"Student: {s.Name}, GPA: {s.GPA}");
 
 
-public interface IGradable
+void PrintGradeReport(IEnumerable<IGradable> assessments)
 {
-    string Title { get; }
+    Console.WriteLine("--- Grade Report ---");
 
-    decimal CalculateGrade();
-}
-
-public class Quiz : IGradable
-{
-    public required string Title { get; init; }
-
-    public required int CorrectAnswers { get; init; }
-
-    public required int TotalQuestions { get; init; }
-
-    public decimal CalculateGrade()
+    foreach (var item in assessments)
     {
-        if (TotalQuestions == 0)
-        {
-            return 0m;
-        }
-
-        return (decimal)CorrectAnswers / TotalQuestions * 100m;
+        Console.WriteLine($"{item.Title}: {item.CalculateGrade():F2}%");
     }
 }
 
-public class LabAssignment : IGradable
-{
-    public required string Title { get; init; }
-
-    public required decimal FunctionalityScore { get; init; }
-
-    public required decimal CodeQualityScore { get; init; }
-
-    public decimal CalculateGrade()
+IGradable[] cohortAssessments =
+[
+    new Quiz
     {
-        return (FunctionalityScore * 0.7m)
-             + (CodeQualityScore * 0.3m);
-    }
-}
+        Title = "C# Basics",
+        CorrectAnswers = 18,
+        TotalQuestions = 20
+    },
 
+    new LabAssignment
+    {
+        Title = "Registration API",
+        FunctionalityScore = 90m,
+        CodeQualityScore = 85m
+    }
+];
+
+PrintGradeReport(cohortAssessments);
