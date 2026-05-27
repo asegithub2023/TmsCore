@@ -58,3 +58,32 @@ var duplicate = new EnrollmentRecord(
 
 Console.WriteLine($"Same data? {enrollment == duplicate}");
 
+
+
+var course = new Course
+{
+    Code = "CS-401",
+    Title = "Advanced C#",
+    Capacity = 30
+};
+
+Console.WriteLine($"Course: {course.Title} (Capacity: {course.Capacity})");
+
+try
+{
+    course.Capacity = -5;
+}
+catch (ArgumentOutOfRangeException ex)
+{
+    Console.WriteLine($"Caught: {ex.Message}");
+}
+
+try
+{
+    course.Title = "";
+}
+catch (ArgumentException ex)
+{
+    Console.WriteLine($"Caught: {ex.Message}");
+}
+
