@@ -87,3 +87,15 @@ catch (ArgumentException ex)
     Console.WriteLine($"Caught: {ex.Message}");
 }
 
+
+var s = new Student
+{
+    Id = "S1",
+    Name = "Abeba",
+    Age = 20,
+    GPA = 3.8m
+};
+
+Console.WriteLine($"Student: {s.Name}, GPA: {s.GPA}");
+
+
