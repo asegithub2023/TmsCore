@@ -1,5 +1,4 @@
-﻿
-using System.Diagnostics;
+﻿/*
 string? region = null;
 
 string? upperRegion = region?.ToUpper();
@@ -308,38 +307,85 @@ static void ValidateStudent(Student? student)
 
 ValidateStudent(students.First());
 
+*/
 
 
 //Session 3
-//using System.Diagnostics;
+using System.Diagnostics;
 
 var sw = Stopwatch.StartNew();
 
-// Blocking sequential
-for (int i = 0; i < 5; i++)
+async Task<Student> FetchStudentAsync(string id)
 {
-    Thread.Sleep(300);
-}
+    Console.WriteLine($"Fetching {id}...");
 
-Console.WriteLine($"Blocking sequential: {sw.ElapsedMilliseconds}ms");
-
-// Async sequential
-sw.Restart();
-
-for (int i = 0; i < 5; i++)
-{
     await Task.Delay(300);
+
+    return new Student
+    {
+        Id = id,
+        Name = $"Student-{id}",
+        Age = 20,
+
+        GPA = id switch
+        {
+            "S1" => 3.8m,
+            "S2" => 2.4m,
+            "S3" => 3.5m,
+            "S4" => 1.9m,
+            "S5" => 3.2m,
+            _ => 2.5m
+        }
+    };
 }
 
-Console.WriteLine($"Async sequential: {sw.ElapsedMilliseconds}ms");
+async Task<Course> FetchCourseAsync(string code)
+{
+    Console.WriteLine($"Fetching course {code}...");
 
-// Async parallel
-sw.Restart();
+    await Task.Delay(200);
 
-var tasks = Enumerable
-    .Range(0, 5)
-    .Select(_ => Task.Delay(300));
+    return new Course
+    {
+        Code = code,
+        Title = $"Course-{code}",
 
-await Task.WhenAll(tasks);
+        Capacity = code switch
+        {
+            "CRS-101" => 2,
+            "CRS-201" => 30,
+            "CRS-301" => 15,
+            _ => 25
+        }
+    };
+}
 
-Console.WriteLine($"Async parallel: {sw.ElapsedMilliseconds}ms");
+string[] studentIds = ["S1", "S2", "S3", "S4", "S5"];
+
+string[] courseCodes =
+[
+    "CRS-101",
+    "CRS-201",
+    "CRS-301"
+];
+
+var studentTasks =
+    studentIds.Select(id => FetchStudentAsync(id));
+
+var courseTasks =
+    courseCodes.Select(code => FetchCourseAsync(code));
+
+Student[] students =
+    await Task.WhenAll(studentTasks);
+
+Course[] courses =
+    await Task.WhenAll(courseTasks);
+
+Console.WriteLine(
+    $"\nLoaded {students.Length} students and {courses.Length} courses in {sw.ElapsedMilliseconds}ms"
+);
+
+foreach (var s in students)
+{
+    Console.WriteLine($"{s.Name} GPA: {s.GPA}");
+}
