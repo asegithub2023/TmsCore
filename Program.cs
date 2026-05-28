@@ -163,3 +163,22 @@ foreach (var courseName in frontendCourses)
 }
 
 
+
+
+
+string[] allCourses =
+[
+    ..backendCourses,
+    ..frontendCourses,
+    "Capstone Project"
+];
+
+Console.WriteLine();
+
+Console.WriteLine("All Courses:");
+
+foreach (var courses in allCourses)
+{
+    Console.WriteLine(courses);
+}
+
