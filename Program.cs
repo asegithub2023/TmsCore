@@ -250,3 +250,20 @@ foreach (var student in rankedStudents)
 {
     Console.WriteLine($"{student.Name} - {student.GPA}");
 }
+
+
+decimal averageGpa = students.Average(s => s.GPA);
+
+int strugglingStudents = students.Count(s => s.GPA < 2.0m);
+
+bool hasProbationStudents = students.Any(s => s.GPA < 2.5m);
+
+Student? topStudent = students.MaxBy(s => s.GPA);
+
+Console.WriteLine();
+
+Console.WriteLine($"Average GPA: {averageGpa:F2}");
+Console.WriteLine($"Struggling Students: {strugglingStudents}");
+Console.WriteLine($"Any Probation Students: {hasProbationStudents}");
+Console.WriteLine($"Top Student: {topStudent?.Name}");
+
