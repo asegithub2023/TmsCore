@@ -1,4 +1,5 @@
-﻿string? region = null;
+﻿
+string? region = null;
 
 string? upperRegion = region?.ToUpper();
 Console.WriteLine($"Region (conditional): {upperRegion}");
@@ -131,5 +132,34 @@ PrintGradeReport(cohortAssessments);
 
 //session2
 
+List<string> backendCourses =
+[
+    "C#",
+    "ASP.NET Core",
+    "SQL Server"
+];
+
+List<string> frontendCourses =
+[
+    "Angular",
+    "HTML",
+    "CSS"
+];
+
+Console.WriteLine("Backend Courses:");
+
+foreach (var courseName in backendCourses)
+{
+    Console.WriteLine(courseName);
+}
+
+Console.WriteLine();
+
+Console.WriteLine("Frontend Courses:");
+
+foreach (var courseName in frontendCourses)
+{
+    Console.WriteLine(courseName);
+}
 
 
