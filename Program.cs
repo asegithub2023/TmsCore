@@ -1,4 +1,5 @@
-﻿string? region = null;
+﻿
+string? region = null;
 
 string? upperRegion = region?.ToUpper();
 Console.WriteLine($"Region (conditional): {upperRegion}");
@@ -127,3 +128,182 @@ IGradable[] cohortAssessments =
 ];
 
 PrintGradeReport(cohortAssessments);
+
+
+//session2
+
+List<string> backendCourses =
+[
+    "C#",
+    "ASP.NET Core",
+    "SQL Server"
+];
+
+List<string> frontendCourses =
+[
+    "Angular",
+    "HTML",
+    "CSS"
+];
+
+Console.WriteLine("Backend Courses:");
+
+foreach (var courseName in backendCourses)
+{
+    Console.WriteLine(courseName);
+}
+
+Console.WriteLine();
+
+Console.WriteLine("Frontend Courses:");
+
+foreach (var courseName in frontendCourses)
+{
+    Console.WriteLine(courseName);
+}
+
+
+
+
+
+string[] allCourses =
+[
+    ..backendCourses,
+    ..frontendCourses,
+    "Capstone Project"
+];
+
+Console.WriteLine();
+
+Console.WriteLine("All Courses:");
+
+foreach (var courses in allCourses)
+{
+    Console.WriteLine(courses);
+}
+
+
+
+List<Student> students =
+[
+    new()
+    {
+        Id = "S1",
+        Name = "Abeba",
+        GPA = 3.8m,
+        Age = 21
+    },
+
+    new()
+    {
+        Id = "S2",
+        Name = "Hana",
+        GPA = 2.7m,
+        Age = 20
+    },
+
+    new()
+    {
+        Id = "S3",
+        Name = "Dawit",
+        GPA = 3.2m,
+        Age = 23
+    },
+
+    new()
+    {
+        Id = "S4",
+        Name = "Kebede",
+        GPA = 1.9m,
+        Age = 25
+    }
+];
+
+
+var honorsStudents = students
+    .Where(s => s.GPA >= 3.0m);
+
+Console.WriteLine();
+
+Console.WriteLine("Honors Students:");
+
+foreach (var student in honorsStudents)
+{
+    Console.WriteLine($"{student.Name} - {student.GPA}");
+}
+
+
+
+var rankedStudents = students
+    .OrderByDescending(s => s.GPA)
+    .Select(s => new
+    {
+        s.Name,
+        s.GPA
+    });
+
+Console.WriteLine();
+
+Console.WriteLine("Ranked Students:");
+
+foreach (var student in rankedStudents)
+{
+    Console.WriteLine($"{student.Name} - {student.GPA}");
+}
+
+
+decimal averageGpa = students.Average(s => s.GPA);
+
+int strugglingStudents = students.Count(s => s.GPA < 2.0m);
+
+bool hasProbationStudents = students.Any(s => s.GPA < 2.5m);
+
+Student? topStudent = students.MaxBy(s => s.GPA);
+
+Console.WriteLine();
+
+Console.WriteLine($"Average GPA: {averageGpa:F2}");
+Console.WriteLine($"Struggling Students: {strugglingStudents}");
+Console.WriteLine($"Any Probation Students: {hasProbationStudents}");
+Console.WriteLine($"Top Student: {topStudent?.Name}");
+
+
+foreach (var student in students)
+{
+    string status = student.GPA switch
+    {
+        >= 3.5m => "Honors",
+        >= 2.5m => "Good Standing",
+        _ => "Academic Warning"
+    };
+
+    Console.WriteLine($"{student.Name}: {status}");
+}
+
+
+foreach (var student in students)
+{
+    string category = student switch
+    {
+        { GPA: >= 3.5m, Age: < 22 } => "Young Honors",
+        { GPA: >= 3.0m } => "High Performer",
+        _ => "Regular"
+    };
+
+    Console.WriteLine($"{student.Name}: {category}");
+}
+
+
+
+static void ValidateStudent(Student? student)
+{
+    if (student is null)
+    {
+        throw new ArgumentNullException(nameof(student));
+    }
+
+    Console.WriteLine($"Validated: {student.Name}");
+}
+
+ValidateStudent(students.First());
+
