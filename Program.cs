@@ -182,3 +182,39 @@ foreach (var courses in allCourses)
     Console.WriteLine(courses);
 }
 
+
+
+List<Student> students =
+[
+    new()
+    {
+        Id = "S1",
+        Name = "Abeba",
+        GPA = 3.8m,
+        Age = 21
+    },
+
+    new()
+    {
+        Id = "S2",
+        Name = "Hana",
+        GPA = 2.7m,
+        Age = 20
+    },
+
+    new()
+    {
+        Id = "S3",
+        Name = "Dawit",
+        GPA = 3.2m,
+        Age = 23
+    },
+
+    new()
+    {
+        Id = "S4",
+        Name = "Kebede",
+        GPA = 1.9m,
+        Age = 25
+    }
+];
