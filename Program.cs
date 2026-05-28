@@ -267,3 +267,15 @@ Console.WriteLine($"Struggling Students: {strugglingStudents}");
 Console.WriteLine($"Any Probation Students: {hasProbationStudents}");
 Console.WriteLine($"Top Student: {topStudent?.Name}");
 
+
+foreach (var student in students)
+{
+    string status = student.GPA switch
+    {
+        >= 3.5m => "Honors",
+        >= 2.5m => "Good Standing",
+        _ => "Academic Warning"
+    };
+
+    Console.WriteLine($"{student.Name}: {status}");
+}
