@@ -435,5 +435,36 @@ foreach (var student in students)
 }
 
 
+try
+{
+    var overflowCourse = new Course
+    {
+        Code = "CRS-999",
+        Title = "Overflow Test",
+        Capacity = 1
+    };
+
+    enrollService.ProcessRegistration(
+        new Student
+        {
+            Id = "S99",
+            Name = "Test",
+            Age = 20,
+            GPA = 3.0m
+        },
+        overflowCourse
+    );
+}
+catch (CapacityReachedException ex)
+{
+    Console.WriteLine("\nDomain exception caught:");
+
+    Console.WriteLine($"Course: {ex.CourseCode}");
+
+    Console.WriteLine($"Message: {ex.Message}");
+}
+
+
+
 
 
