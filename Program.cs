@@ -1,4 +1,5 @@
 ﻿
+using System.Diagnostics;
 string? region = null;
 
 string? upperRegion = region?.ToUpper();
@@ -307,3 +308,38 @@ static void ValidateStudent(Student? student)
 
 ValidateStudent(students.First());
 
+
+
+//Session 3
+//using System.Diagnostics;
+
+var sw = Stopwatch.StartNew();
+
+// Blocking sequential
+for (int i = 0; i < 5; i++)
+{
+    Thread.Sleep(300);
+}
+
+Console.WriteLine($"Blocking sequential: {sw.ElapsedMilliseconds}ms");
+
+// Async sequential
+sw.Restart();
+
+for (int i = 0; i < 5; i++)
+{
+    await Task.Delay(300);
+}
+
+Console.WriteLine($"Async sequential: {sw.ElapsedMilliseconds}ms");
+
+// Async parallel
+sw.Restart();
+
+var tasks = Enumerable
+    .Range(0, 5)
+    .Select(_ => Task.Delay(300));
+
+await Task.WhenAll(tasks);
+
+Console.WriteLine($"Async parallel: {sw.ElapsedMilliseconds}ms");
