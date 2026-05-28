@@ -292,3 +292,18 @@ foreach (var student in students)
 
     Console.WriteLine($"{student.Name}: {category}");
 }
+
+
+
+static void ValidateStudent(Student? student)
+{
+    if (student is null)
+    {
+        throw new ArgumentNullException(nameof(student));
+    }
+
+    Console.WriteLine($"Validated: {student.Name}");
+}
+
+ValidateStudent(students.First());
+
