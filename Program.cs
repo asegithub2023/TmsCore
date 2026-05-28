@@ -231,3 +231,22 @@ foreach (var student in honorsStudents)
 {
     Console.WriteLine($"{student.Name} - {student.GPA}");
 }
+
+
+
+var rankedStudents = students
+    .OrderByDescending(s => s.GPA)
+    .Select(s => new
+    {
+        s.Name,
+        s.GPA
+    });
+
+Console.WriteLine();
+
+Console.WriteLine("Ranked Students:");
+
+foreach (var student in rankedStudents)
+{
+    Console.WriteLine($"{student.Name} - {student.GPA}");
+}
