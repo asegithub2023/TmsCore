@@ -218,3 +218,16 @@ List<Student> students =
         Age = 25
     }
 ];
+
+
+var honorsStudents = students
+    .Where(s => s.GPA >= 3.0m);
+
+Console.WriteLine();
+
+Console.WriteLine("Honors Students:");
+
+foreach (var student in honorsStudents)
+{
+    Console.WriteLine($"{student.Name} - {student.GPA}");
+}
