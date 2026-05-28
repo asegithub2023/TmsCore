@@ -279,3 +279,16 @@ foreach (var student in students)
 
     Console.WriteLine($"{student.Name}: {status}");
 }
+
+
+foreach (var student in students)
+{
+    string category = student switch
+    {
+        { GPA: >= 3.5m, Age: < 22 } => "Young Honors",
+        { GPA: >= 3.0m } => "High Performer",
+        _ => "Regular"
+    };
+
+    Console.WriteLine($"{student.Name}: {category}");
+}
